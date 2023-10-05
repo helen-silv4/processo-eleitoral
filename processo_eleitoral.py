@@ -28,7 +28,7 @@ V4 = 0
 VB = 0
 VN = 0
 
-print('|----- Processo Eleitoral -----|\n')
+print('|------------------- Processo Eleitoral -------------------|\n')
 while True:
     idade = input('Digite sua idade: ')
     try:
@@ -44,16 +44,18 @@ while True:
             |------------------------------|
             ''')
             print('''
-            |--------------------------|
-            |        PREFEITOS         |
-            |--------------------------|
-            |   P1  |  Prefeito 1      |
-            |   P2  |  Prefeito 2      |
-            |   P3  |  Prefeito 3      |
-            |   P4  |  Prefeito 4      |
-            |   PB  |  Voto Branco     |
-            |   PN  |  Voto Nulo       |
-            |--------------------------|
+            |---------------------------------|
+            |           PREFEITOS             |
+            |---------------------------------|
+            | SIGLA |   CANDIDATO   | PARTIDO |
+            |---------------------------------|
+            |   P1  |   Prefeito 1  |   PDB   |
+            |   P2  |   Prefeito 2  |   PDB   |
+            |   P3  |   Prefeito 3  |   PSB   | 
+            |   P4  |   Prefeito 4  |   PSB   |
+            |   PB  |   Voto Branco |   ***   |
+            |   PN  |   Voto Nulo   |   ***   |
+            |---------------------------------|
             ''')
             prefeito = input('Digite a sigla para candidato a prefeito: ')
 
@@ -80,16 +82,18 @@ while True:
                 print('Voto para prefeito confirmado!')
 
             print('''
-            |--------------------------|
-            |        VEREADORES        |
-            |--------------------------|
-            |   V1  |  Vereador 1      |
-            |   V2  |  Vereador 2      |
-            |   V3  |  Vereador 3      |
-            |   V4  |  Vereador 4      |
-            |   VB  |  Voto Branco     |
-            |   VN  |  Voto Nulo       |
-            |--------------------------|
+            |---------------------------------|
+            |           VEREADORES            |
+            |---------------------------------|
+            | SIGLA |   CANDIDATO   | PARTIDO |
+            |---------------------------------|
+            |   V1  |  Vereador 1   |   PDB   |
+            |   V2  |  Vereador 2   |   PDB   |
+            |   V3  |  Vereador 3   |   PSB   |
+            |   V4  |  Vereador 4   |   PSB   | 
+            |   VB  |  Voto Branco  |   ***   |
+            |   VN  |  Voto Nulo    |   ***   |
+            |---------------------------------|
             ''')
             vereador = input('Digite a sigla para candidato a vereador: ')
 
@@ -114,31 +118,53 @@ while True:
             elif vereador == 'VN' or vereador == 'vn' or prefeito == 'Vn' or prefeito == 'vN':
                 VN += 1
                 print('Voto para vereador confirmado!')
+            print('\n|------------------- Votação encerrada -------------------|\n')
             contador += 1
         else:
             print('Você não tem idade suficiente para votar.')
 
-        
-
         if contador >= eleitores_esperados:
-            break           
-        
+            break                   
     except ValueError:
         print('Digite uma idade válida (um número inteiro)!')
 
+print('\n|------------------- Encerramento das Eleições -------------------|')
 print(f'''
-|--------------------------------------------|
-|                TOTALIZAÇÃO                 |
-|--------------------------------------------|
-|        PREFEITOS    |    VEREADORES        |
-|         P1 = {P1}      |      V1 = {V1}          |
-|         P2 = {P2}      |      V2 = {V2}          |
-|         P3 = {P3}      |      V3 = {V3}          |
-|         P4 = {P4}      |      V4 = {V4}          |
-|        TOTAL = {P1+P2+P3+P4}    |     TOTAL = {V1+V2+V3+V4}        |
-|--------------------------------------------|
-|       NULOS = {PN+VN}     |   EM BRANCOS = {PB+VB}     |
-|--------------------------------------------|
-|       VOTARAM = {contador}   |   FALTAS = {eleitores_esperados - contador}         |
-|--------------------------------------------|
+            |--------------------------------------------|
+            |                TOTALIZAÇÃO                 |
+            |--------------------------------------------|
+            |                 PREFEITOS                  |
+            |--------------------------------------------|
+            |          PDB         |          PSB        |
+            |--------------------------------------------|
+            |        P1 = {P1}        |       P3 = {P3}        |
+            |        P2 = {P2}        |       P4 = {P4}        |
+            |--------------------------------------------|
+            |                  VEREADORES                |
+            |--------------------------------------------|
+            |          PDB         |          PSB        |
+            |--------------------------------------------| 
+            |         V1 = {V1}       |      V3 = {V3}         |
+            |         V2 = {V2}       |      V4 = {V4}         |
+            |--------------------------------------------|
+            |                  TOTAL VOTOS               |
+            |--------------------------------------------|
+            |          PARTIDO     |      CARGO          |
+            |--------------------------------------------|
+            |          PDB = {P1+P2+V1+V2}     |   Prefeito = {P1+P2+P3+P4}      |
+            |          PSB = {P3+P4+V1+V4}     |   Vereador = {V1+V2+V3+V4}      |
+            |          Nulos = {PN}   |   Em branco = {VB}     |
+            |--------------------------------------------|
+            |                TOTAL ELEITORES             |
+            |--------------------------------------------|
+            |       VOTARAM = {contador}   |   FALTAS = {eleitores_esperados - contador}         |
+            |--------------------------------------------|
+
+
+            |--------------------------------------------|
+            |                 RESULTADO                  |
+            |--------------------------------------------|
+            |   Candidato a Prefeito mais votado = {''}      |
+            |   Candidato a Vereador mais votado = {''}      |
+            |--------------------------------------------|
 ''')
