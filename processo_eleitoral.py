@@ -28,6 +28,7 @@ V4 = 0
 VB = 0
 VN = 0
 
+print('|----- Processo Eleitoral -----|\n')
 while True:
     idade = input('Digite sua idade: ')
     try:
@@ -37,7 +38,7 @@ while True:
             |------------------------------|
             |  URNA ELETÔNICA - {cod_UE}  |
             |------------------------------|
-            |   Eleitores esperados | {eleitores_esperados}   |
+            |   Eleitores esperados | {eleitores_esperados}    |
             |   Zona  | {zona}               |
             |   Seção | {secao}               |
             |------------------------------|
@@ -113,10 +114,11 @@ while True:
             elif vereador == 'VN' or vereador == 'vn' or prefeito == 'Vn' or prefeito == 'vN':
                 VN += 1
                 print('Voto para vereador confirmado!')
+            contador += 1
         else:
             print('Você não tem idade suficiente para votar.')
 
-        contador += 1
+        
 
         if contador >= eleitores_esperados:
             break           
