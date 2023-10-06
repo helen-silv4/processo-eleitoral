@@ -71,27 +71,27 @@ while True:
             ''')
             time.sleep(2)
 
-            prefeito = input('Digite a sigla para candidato a prefeito: ')
+            prefeito = input('Digite a sigla para candidato a prefeito: ').upper()
 
-            while (prefeito != 'P1' and prefeito != 'p1' and prefeito != 'P2' and prefeito != 'p2' and prefeito != 'P3' and prefeito != 'p3' and prefeito != 'P4' and prefeito != 'p4' and prefeito != 'PB' and prefeito != 'pb' and prefeito != 'Pb' and prefeito != 'pB' and prefeito != 'PN' and prefeito != 'pn' and prefeito != 'Pn' and prefeito != 'pN'):
+            while (prefeito != 'P1'  and prefeito != 'P2' and prefeito != 'P3' and prefeito != 'P4'  and prefeito != 'PB'  and prefeito != 'PN'):
                 prefeito = input('Digite uma sigla válida (PREFEITO): ')
 
-            if prefeito == 'P1' or prefeito == 'p1':
+            if prefeito == 'P1':
                 P1 += 1
                 print('Voto para prefeito confirmado!')
-            elif prefeito == 'P2' or prefeito == 'p2':
+            elif prefeito == 'P2':
                 P2 += 1
                 print('Voto para prefeito confirmado!')
-            elif prefeito == 'P3' or prefeito == 'p3':
+            elif prefeito == 'P3':
                 P3 += 1
                 print('Voto para prefeito confirmado!')
-            elif prefeito == 'P4' or prefeito == 'p4':
+            elif prefeito == 'P4':
                 P4 += 1
                 print('Voto para prefeito confirmado!')
-            elif prefeito == 'PB' or prefeito == 'pb' or prefeito == 'Pb' or prefeito == 'pB':
+            elif prefeito == 'PB':
                 PB += 1
                 print('Voto para prefeito confirmado!')
-            elif prefeito == 'PN' or prefeito == 'pn' or prefeito == 'Pn' or prefeito == 'pN':
+            elif prefeito == 'PN':
                 PN += 1
                 print('Voto para prefeito confirmado!')
             time.sleep(2)
@@ -110,27 +110,28 @@ while True:
 |---------------------------------|
             ''')
             time.sleep(2)
-            vereador = input('Digite a sigla para candidato a vereador: ')
+            
+            vereador = input('Digite a sigla para candidato a vereador: ').upper()
 
-            while (vereador != 'V1' and vereador != 'v1' and vereador != 'V2' and vereador != 'v2' and vereador != 'V3' and vereador != 'v3' and vereador != 'V4' and vereador != 'v4' and vereador != 'VB' and vereador != 'vb' and vereador != 'Vb' and vereador != 'vB' and vereador != 'VN' and vereador != 'vn' and vereador != 'Vn' and vereador != 'vN'):
+            while (vereador != 'V1' and vereador != 'V2' and vereador != 'V3' and vereador != 'V4' and vereador != 'VB' and vereador != 'VN'):
                 vereador = input('Digite uma sigla válida (VEREADOR): ')
 
-            if vereador == 'V1' or vereador == 'v1':
+            if vereador == 'V1':
                 V1 += 1
                 print('Voto para vereador confirmado!')
-            elif vereador == 'V2' or vereador == 'v2':
+            elif vereador == 'V2':
                 V2 += 1
                 print('Voto para vereador confirmado!')
-            elif vereador == 'V3' or vereador == 'v3':
+            elif vereador == 'V3':
                 V3 += 1
                 print('Voto para vereador confirmado!')
-            elif vereador == 'V4' or vereador == 'v4':
+            elif vereador == 'V4':
                 V4 += 1
                 print('Voto para vereador confirmado!')
-            elif vereador == 'VB' or vereador == 'vb' or prefeito == 'Vb' or prefeito == 'vB':
+            elif vereador == 'VB':
                 VB += 1
                 print('Voto para vereador confirmado!')
-            elif vereador == 'VN' or vereador == 'vn' or prefeito == 'Vn' or prefeito == 'vN':
+            elif vereador == 'VN':
                 VN += 1
                 print('Voto para vereador confirmado!')
 
@@ -225,7 +226,7 @@ print(f'''
 |           PARTIDO              |            CARGO              |
 |----------------------------------------------------------------|
 |           PDB = {P1+P2+V1+V2}              |          Prefeito = {P1+P2+P3+P4}         |
-|           PSB = {P3+P4+V1+V4}              |          Vereador = {V1+V2+V3+V4}         |
+|           PSB = {P3+P4+V3+V4}              |          Vereador = {V1+V2+V3+V4}         |
 |----------------------------------------------------------------|
 |            NULOS               |           BRANCOS             |
 |----------------------------------------------------------------|
