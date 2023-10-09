@@ -5,15 +5,14 @@
 /* Profa. Eliane                   */
 /***********************************/
 '''
+# Imports para limpar o terminal e temporizador
 import os 
 import time
 
-zona = '0237'
-secao = '0986'
-cod_UE = '874639576'
-eleitores_esperados = 3
+# Variável contador para contar quantos loops ocorrerá (Quantos eleitores votaram)
 contador = 0
 
+# Variáveis para prefeito
 prefeito = ''
 P1 = 0
 P2 = 0
@@ -22,6 +21,7 @@ P4 = 0
 PB = 0
 PN = 0
 
+# Variáveis para vereadores
 vereador = ''
 V1 = 0
 V2 = 0
@@ -30,21 +30,31 @@ V4 = 0
 VB = 0
 VN = 0
 
+# Função para limpar terminal 
 def limpar_terminal():
     if os.name == 'posix':  #Linux e macOS
         os.system('clear')
     elif os.name == 'nt':  #Windows
         os.system('cls')
 
+# Inputs para cadastro da Urna Eletônica
+print('|------------------- Cadastro da Urna -------------------------|\n')      
+zona = input('Digite a Zona Eleitoral: ')
+secao = input('Digite a Seção: ')
+cod_UE = input('Digite o código da Urna Eletrônica: ')
+
+eleitores_esperados = input('Digite a quantidade de eleitores esperados: ')
+
+# Verifica se eleitores_esperados é um valor numérico
+while not eleitores_esperados.isdigit():
+    eleitores_esperados = input('Digito inválido! Digite a quantidade de eleitores esperados : ')
+
 while True:
-    print('|------------------- Processo Eleitoral -------------------------|\n')
+    print('\n|------------------- Processo Eleitoral -------------------------|\n')
     time.sleep(2)
 
-    idade = input('Digite sua idade: ')
-    try:
-        idade_int = int(idade)
-        if idade_int >= 16 and idade_int <= 115:
-            print(f'''
+# Mostra os dados cadastrados na urna
+    print(f'''
 |------------------------------|
 |  URNA ELETÔNICA - {cod_UE}  |
 |------------------------------|
@@ -52,9 +62,14 @@ while True:
 |   Zona  | {zona}               |
 |   Seção | {secao}               |
 |------------------------------|
-            ''')
-            time.sleep(2)
-
+''')
+    
+    idade = input('Digite sua idade: ')
+    # Tenta usar o bloco try para caso capture um erro ao usuário digitar um dado inválido para idade
+    try:
+        idade_int = int(idade)
+        # Se a idade estiver entre 16 e 115 anos inicia-se o processo de votação
+        if idade_int >= 16 and idade_int <= 115:
             print('''
 |---------------------------------|
 |           PREFEITOS             |
@@ -69,12 +84,11 @@ while True:
 |   PN  |   Voto Nulo   |   ***   |
 |---------------------------------|
             ''')
-            time.sleep(2)
-
+            # Verifica se a entrada de dados é válida
             prefeito = input('Digite a sigla para candidato a prefeito: ').upper()
 
             while (prefeito != 'P1'  and prefeito != 'P2' and prefeito != 'P3' and prefeito != 'P4'  and prefeito != 'PB'  and prefeito != 'PN'):
-                prefeito = input('Digite uma sigla válida (PREFEITO): ')
+                prefeito = input('Digite uma sigla válida (PREFEITO): ').upper()
 
             if prefeito == 'P1':
                 P1 += 1
@@ -94,7 +108,6 @@ while True:
             elif prefeito == 'PN':
                 PN += 1
                 print('Voto para prefeito confirmado!')
-            time.sleep(2)
             print('''
 |---------------------------------|
 |           VEREADORES            |
@@ -109,12 +122,11 @@ while True:
 |   VN  |  Voto Nulo    |   ***   |
 |---------------------------------|
             ''')
-            time.sleep(2)
-            
+            # Verifica se a entrada de dados é válida
             vereador = input('Digite a sigla para candidato a vereador: ').upper()
 
             while (vereador != 'V1' and vereador != 'V2' and vereador != 'V3' and vereador != 'V4' and vereador != 'VB' and vereador != 'VN'):
-                vereador = input('Digite uma sigla válida (VEREADOR): ')
+                vereador = input('Digite uma sigla válida (VEREADOR): ').upper()
 
             if vereador == 'V1':
                 V1 += 1
@@ -136,22 +148,26 @@ while True:
                 print('Voto para vereador confirmado!')
 
             print('\n|-------------------- Votação encerrada -------------------------|\n')
-            time.sleep(3)
-
+            time.sleep(2)
+            
+            # Após terminar a votação incrementa + 1 no contador e chama a função para limpar o terminal
             contador += 1
-
             limpar_terminal()
 
+        # Chave para caso o administrador queira parar o processo de votação
         elif idade_int == 2763:
             break
+        # Caso idade for menor que 16 ou maior que 115
         else:
             print('Você não tem idade suficiente para votar.')
-
-        if contador >= eleitores_esperados:
-            break                   
+        # Encerra o processo de votação quando o contador por maior ou igual a quantidade de eleitores esperados
+        if contador >= int(eleitores_esperados):
+            break 
+    # Captura de erro
     except ValueError:
         print('Digite uma idade válida (um número inteiro)!')
 
+# Função para verificar o Prefeito vencedor ou empate
 def prefeitoVencedor(P1, P2, P3, P4):
     if (P1 == 0) and (P2 == 0) and (P3 == 0) and (P4 == 0):
         return 'Votos nulos ou brancos! Haverá um novo turno.'
@@ -163,21 +179,22 @@ def prefeitoVencedor(P1, P2, P3, P4):
         return 'Prefeito 3 Vencedor!'
     elif (P4 > P1) and (P4 > P2) and (P4 > P3):
         return 'Prefeito 4 Vencedor!'
-    elif (P1 == P2) or (P2 == P1):
-        return 'Empate Prefeitos 1 e 2! Haverá um novo turno.'
-    elif (P1 == P3) or (P3 == P1):
-        return 'Empate Prefeitos 1 e 3! Haverá um novo turno.'
-    elif (P1 == P4) or (P4 == P1):
-        return 'Empate Prefeitos 1 e 4! Haverá um novo turno.'
-    elif (P2 == P3) or (P3 == P2):
-        return 'Empate Prefeitos 2 e 3! Haverá um novo turno.'
-    elif (P2 == P4) or (P4 == P2):
-        return 'Empate Prefeitos 2 e 4! Haverá um novo turno.'
-    elif (P3 == P4) or (P4 == P3):
-        return 'Empate Prefeitos 3 e 4! Haverá um novo turno.'
+    elif (P1 == P2):
+        return 'Empate Prefeitos! Haverá um novo turno.'
+    elif (P1 == P3):
+        return 'Empate Prefeitos! Haverá um novo turno.'
+    elif (P1 == P4):
+        return 'Empate Prefeitos! Haverá um novo turno.'
+    elif (P2 == P3):
+        return 'Empate Prefeitos! Haverá um novo turno.'
+    elif (P2 == P4):
+        return 'Empate Prefeitos! Haverá um novo turno.'
+    elif (P3 == P4):
+        return 'Empate Prefeitos! Haverá um novo turno.'
     else:
         return 'Houve um equívoco! Haverá um novo turno.'
 
+# Função para verificar o Vereador vencedor ou empate
 def vereadorVencedor(V1, V2, V3, V4):
     if (V1 == 0) and (V2 == 0) and (V3 == 0) and (V4 == 0):
         return 'Votos nulos ou brancos! Haverá um novo turno.'
@@ -189,26 +206,29 @@ def vereadorVencedor(V1, V2, V3, V4):
         return 'Vereador 3 Vencedor!'
     elif (V4 > V1) and (V4 > V2) and (V4 > V3):
         return 'Vereador 4 Vencedor!'
-    elif (V1 == V2) or (V2 == V1):
-        return 'Empate Vereadores 1 e 2! Haverá um novo turno.'
-    elif (V1 == V3) or (V3 == V1):
-        return 'Empate Vereadores 1 e 3! Haverá um novo turno.'
-    elif (V1 == V4) or (V4 == V1):
-        return 'Empate Vereadores 1 e 4! Haverá um novo turno.'
-    elif (V2 == V3) or (V3 == V2):
-        return 'Empate Vereadores 2 e 3! Haverá um novo turno.'
-    elif (V2 == V4) or (V4 == V2):
-        return 'Empate Vereadores 2 e 4! Haverá um novo turno.'
-    elif (V3 == V4) or (V4 == V3):
-        return 'Empate Vereadores 3 e 4! Haverá um novo turno.'
+    elif (V1 == V2):
+        return 'Empate Vereadores! Haverá um novo turno.'
+    elif (V1 == V3):
+        return 'Empate Vereadores! Haverá um novo turno.'
+    elif (V1 == V4):
+        return 'Empate Vereadores! Haverá um novo turno.'
+    elif (V2 == V3):
+        return 'Empate Vereadores! Haverá um novo turno.'
+    elif (V2 == V4):
+        return 'Empate Vereadores! Haverá um novo turno.'
+    elif (V3 == V4):
+        return 'Empate Vereadores! Haverá um novo turno.'
     else:
         return 'Houve um equívoco! Haverá um novo turno.'
 
+# Armazena o resultado das função em variáveis
 resultado_prefeito = prefeitoVencedor(P1, P2, P3, P4)
 resultado_vereador = vereadorVencedor(V1, V2, V3, V4)
 
+# Resultado
+
 print('|------------------- Encerramento das Eleições ------------------|')
-time.sleep(3)
+time.sleep(2)
 
 print(f'''
 |----------------------------------------------------------------|
@@ -234,7 +254,7 @@ print(f'''
 |----------------------------------------------------------------|
 |                         TOTAL ELEITORES                        |
 |----------------------------------------------------------------|
-|         VOTARAM = {contador}           |           FALTAS = {eleitores_esperados - contador}           |
+|         VOTARAM = {contador}           |           FALTAS = {int(eleitores_esperados) - contador}           |
 |----------------------------------------------------------------|
 
 
